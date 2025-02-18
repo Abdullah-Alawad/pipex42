@@ -1,0 +1,8 @@
+helloTHIS TEXTING IS NOT IN TERMINAL:))) fd is: 1
+PING google.com (142.250.200.206) 56(84) bytes of data.
+64 bytes from mrs08s17-in-f14.1e100.net (142.250.200.206): icmp_seq=1 ttl=117 time=57.9 ms
+64 bytes from mrs08s17-in-f14.1e100.net (142.250.200.206): icmp_seq=2 ttl=117 time=58.7 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 57.892/58.281/58.671/0.389 ms

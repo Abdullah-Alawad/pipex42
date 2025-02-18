@@ -9,7 +9,13 @@ int main(void)
 	if(id == 0)
 	{
 		close(p1[0]);
-		int err = execlp("ping", "ping", "-c", "2", "google.con", NULL);
+		int file = open("pingResult.txt", O_WRONLY | O_CREAT, 0777);
+		printf("pingResult fd: %d\n", file);
+		int file2 = dup2(file, STDOUT_FILENO); //stdout which is 1 is now the fd for pingResult file
+		close(file);
+		write(1, "hello", 5);
+		printf("THIS TEXTING IS NOT IN TERMINAL:))) fd is: %d\n", file2);
+		int err = execlp("ping", "ping", "-c", "2", "google.com", NULL);
 		if (err == -1)
 		{
 			write(p1[1], &err, sizeof(int));
