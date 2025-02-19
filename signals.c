@@ -2,22 +2,39 @@
 
 void	handle_sig(int sig)
 {
-	printf("input number: ");
-	fflush(stdout);
+	printf("(HINT) think harder:)\n");
 }
 
 int main(void)
 {
-	struct sigaction sa;
-	sa.sa_handler = &handle_sig;
-	sa.sa_flags = SA_RESTART;
-	//sigaction(SIGTSTP, &sa, NULL); // ctrl + z
-	sigaction(SIGCONT, &sa, NULL);   // when typing fg command on terminal
+	int pid = fork();
 
-	int x;
-	printf("input number: ");
-	scanf("%d", &x);
-	printf("10 * %d = %d\n",x, x * 10);
+	if (pid == 0)
+	{
+		sleep(5);
+		kill(getppid(), SIGUSR1);
+	}
+	else
+	{
+		struct sigaction sa;
+		sa.sa_handler = &handle_sig;
+		sa.sa_flags = SA_RESTART;
+		//sigaction(SIGTSTP, &sa, NULL); // ctrl + z
+		//sigaction(SIGCONT, &sa, NULL);   // when typing fg command on terminal
+		sigaction(SIGUSR1, &sa, NULL);
+
+		int x;
+		printf("3 * 5 equals?... ");
+		scanf("%d", &x);
+		if (x == 15)
+		{
+			kill(pid, SIGKILL);
+			printf("right!\n");
+		}
+		else
+			printf("WRONG\n");
+		wait(NULL);
+	}
 }
 
 /*
