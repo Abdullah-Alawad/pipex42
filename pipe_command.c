@@ -6,12 +6,14 @@ int main(void)
 	pipe(fd);
 
 	int id1 = fork();
+
 	if (id1 == 0)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		execlp("ping", "ping", "-c", "3", "google.com", NULL);
+		char *args[] = {"ping", "-c", "3", "google.com", NULL};
+		execve("/usr/bin/ping", args, NULL);
 	}
 
 	int id2 = fork(); // the first child got replaced by the ping program
@@ -21,11 +23,13 @@ int main(void)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		execlp("grep", "grep", "rtt", NULL);
+		char *args[] = {"grep", "rtt", NULL};
+		execve("/usr/bin/grep", args, NULL);
 	}
 	
 	close(fd[1]);
 	close(fd[0]);
 	waitpid(id1, NULL, 0);
+	printf("imhere\n");
 	waitpid(id2, NULL, 0);
 }
