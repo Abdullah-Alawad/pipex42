@@ -13,7 +13,7 @@ int main(void)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		char *args[] = {"ping", "-c", "3", "google.com", NULL};
-		execve("/usr/bin/ping", args, NULL);
+		execve("/bin/ping", args, NULL);
 	}
 
 	int id2 = fork(); // the first child got replaced by the ping program

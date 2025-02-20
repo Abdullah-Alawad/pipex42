@@ -1,11 +1,14 @@
 #include "pipex.h"
 
-int	ft_strlen(const char *s)
+int	open_f(char *file, int r_or_w)
 {
-	int	len;
+	int	fd;
 
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
+	if (r_or_w == 0)
+		fd = open(file, O_RDONLY, 0777);
+	else
+		fd = open(file, O_WRONLY | O_CREAT, 0777);
+	if (fd == -1)
+		exit(-1);
+	return (fd);
 }
