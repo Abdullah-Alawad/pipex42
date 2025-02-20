@@ -11,4 +11,6 @@
 # include <signal.h>
 # include <time.h>
 
+int	ft_strlen(const char *s);
+
 # endif
